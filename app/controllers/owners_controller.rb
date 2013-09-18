@@ -10,7 +10,8 @@ class OwnersController < ApplicationController
   def create
     @owner = Owner.new(owner_params)
     if @owner.save
-      redirect_to owner_path(@owner), alert: "Signed up!" 
+      session[:owner_id] = @owner.id
+      redirect_to owner_path(current_user), alert: "Signed up!" 
     else
       render :new
     end
@@ -24,15 +25,17 @@ class OwnersController < ApplicationController
     @owner = Owner.find(params[:id])
 
     if @owner.update_attributes(owner_params)
-      redirect_to owner_path(@owner)
+      redirect_to owner_path(current_user)
     end
   end
 
   def destroy
     @owner = Owner.find(params[:id])
 
-    if @owner.destroy
-        redirect_to root_path, alert: "Account has been deleted."
+    if @owner == current_user
+      @owner.destroy
+      reset_session
+      redirect_to root_path, alert: "Account has been deleted."
     else
         render :edit
     end

@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @owner = Owner.find_by_email(Params[:email])
+    owner = Owner.find_by_email(params[:email])
     if owner && owner.authenticate(params[:password])
       session[:owner_id] = owner.id
       redirect_to root_path, :notice => "Welcome #{owner.name}"

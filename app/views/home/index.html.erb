@@ -2,7 +2,12 @@
 <p>Welcome</p>
 
 
-<%= link_to "Sign Up", new_owner_path %> | <%= link_to "Login page", new_session_path %>
 <% if current_user %>
-<%= link_to "My Profile", owner_path(current_user) %>
+
+	<%= link_to "My Profile", owner_path(current_user) %> | <%= link_to "Log Out", session_path(current_user), method: :delete %>
+
+<% else %>
+
+	<%= link_to "Sign Up.", new_owner_path %> | <%= link_to "Login page", new_session_path %> | 
+
 <% end %>
