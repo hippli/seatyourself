@@ -35,6 +35,8 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
+gem 'zurb-foundation'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
